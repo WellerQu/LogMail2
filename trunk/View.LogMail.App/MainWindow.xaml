@@ -1,0 +1,163 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ViewModel.LogMail.Business;assembly=ViewModel.LogMail.Business"
+        xmlns:crt="clr-namespace:View.LogMail.App.Converter;assembly=ViewModel.LogMail.App"
+        xmlns:Converter="clr-namespace:View.LogMail.App.Converter" mc:Ignorable="d" x:Class="View.LogMail.App.MainWindow"
+        Title="MainWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="{x:Null}" Foreground="{x:Null}" AllowsTransparency="True" Width="480" Height="850" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Window.Resources>
+        <Converter:CrtSolidColorBrush x:Key="CrtSolidColorBrush"/>
+        <Style  x:Key="buttonMoreStyle"  TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="#FFD4D4D4"/>
+            <Style.Triggers>
+
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFCFEBFF" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="40"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="0,70,0,40">
+            <Border Background="#FF13A9FE" Margin="60,0,0,0">
+                <Label Content="Sun" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Foreground="White"/>
+            </Border>
+            <Border Background="#FFFEA115" Margin="60,0,0,0">
+                <Label Content="Mon" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Foreground="White"/>
+            </Border>
+            <Border Background="#FFFFD014" Margin="60,0,0,0">
+                <Label Content="Tues" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Foreground="White"/>
+            </Border>
+            <Border Background="#FF71D014" Margin="60,0,0,0">
+                <Label Content="Wed" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Foreground="White"/>
+            </Border>
+            <Border Background="#FF5AC4EC" Margin="60,0,0,0">
+                <Label Content="Thurs" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Foreground="White"/>
+            </Border>
+            <Border Background="#FF4214CF" Margin="60,0,0,0">
+                <Label Content="Fri" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Foreground="White"/>
+            </Border>
+            <Border Background="#FF9A00FF" Margin="60,0,0,0">
+                <Label Content="Satur" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Foreground="White"/>
+            </Border>
+            <Rectangle Height="180" StrokeThickness="0"/>
+        </StackPanel>
+        <StackPanel x:Name="RightSiderPanel" Grid.Column="2" Margin="0,40">
+            <StackPanel.Resources>
+                <Style x:Key="btnDateSelector" TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Border Background="{TemplateBinding Background}">
+                                    <Label Content="{TemplateBinding ContentControl.Content}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" Foreground="White"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <EventSetter Event="ButtonBase.Click" Handler="btnDateSelector_Click"/>
+                </Style>
+            </StackPanel.Resources>
+            <Button Style="{StaticResource btnDateSelector}" Content="Sun" Background="#FFFE1413" Tag="0"/>
+            <Button Style="{StaticResource btnDateSelector}" Content="Mon" Background="#FFFEA115" Tag="1"/>
+            <Button Style="{StaticResource btnDateSelector}" Content="Tue" Background="#FFFFD014" Tag="2"/>
+            <Button Style="{StaticResource btnDateSelector}" Content="Wed" Background="#FF71D014" Tag="3"/>
+            <Button Style="{StaticResource btnDateSelector}" Content="Thu" Background="#FF5AC4EC" Tag="4"/>
+            <Button Style="{StaticResource btnDateSelector}" Content="Fri" Background="#FF4214CF" Tag="5"/>
+            <Button Style="{StaticResource btnDateSelector}" Content="Sat" Background="#FF9A00FF" Tag="6"/>
+            <Rectangle Height="180" StrokeThickness="0"/>
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style x:Key="btnControl" TargetType="{x:Type Button}">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard Storyboard.TargetProperty="Margin">
+                                            <ThicknessAnimation From="0,0,30,0" To="0,0,0,0" Duration="0:0:0.2"></ThicknessAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard Storyboard.TargetProperty="Margin">
+                                            <ThicknessAnimation From="0,0,0,0" To="0,0,30,0" Duration="0:0:0.2"></ThicknessAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Resources>
+                <Button Style="{StaticResource btnControl}" x:Name="btnSave" Margin="0, 0, 30, 0" Click="btnSave_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border Height="70" Background="#FF00A2FF"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Style="{StaticResource btnControl}" x:Name="btnClear" Margin="0, 0, 30, 0" Click="btnClear_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border Height="70" Background="#FFFF5100" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+        <Border Grid.Column="1" BorderBrush="{Binding DateKey, Converter={StaticResource CrtSolidColorBrush}}" BorderThickness="5,2" Margin="0,10" CornerRadius="10">
+            <Border.DataContext>
+                <vm:FormViewModel x:Name="DtxFormViewModel" />
+            </Border.DataContext>
+            <Border.Background>
+                <ImageBrush ImageSource="Background/background.png"/>
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect Direction="268" BlurRadius="15" ShadowDepth="3" RenderingBias="Quality"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <TextBlock HorizontalAlignment="Left" Margin="10,4" TextWrapping="Wrap" Text="logmail v2 nix #gemicon" VerticalAlignment="Center" Foreground="#FF9B9B9B" FontSize="9"/>
+                <TextBlock Grid.Row="1" HorizontalAlignment="Right" Text="{Binding DateKey, StringFormat=\{0:D\}}" Foreground="White" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <StackPanel Grid.Row="2" Background="#FFE6E7E8" Margin="5,0">
+                    <StackPanel.Resources>
+                        <Style x:Key="textInput" TargetType="{x:Type TextBox}">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                            <Setter Property="Height" Value="120"/>
+                            <Setter Property="AcceptsReturn" Value="True"/>
+                            <EventSetter Event="UIElement.KeyUp" Handler="TextInput_KeyUp"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock TextWrapping="Wrap" Text="一、本周工作内容" Foreground="#FFBDBDBD" Margin="10,10,10,5"/>
+                    <TextBox Style="{StaticResource textInput}" Text="{Binding WorkContent, Mode=TwoWay}"/>
+
+                    <TextBlock TextWrapping="Wrap" Text="二、本周所遇问题" Foreground="#FFBDBDBD" Margin="10,10,10,5"/>
+                    <TextBox Style="{StaticResource textInput}" Text="{Binding WorkQuestion, Mode=TwoWay}"/>
+
+                    <TextBlock TextWrapping="Wrap" Text="三、本周学习内容" Foreground="#FFBDBDBD" Margin="10,10,10,5"/>
+                    <TextBox Style="{StaticResource textInput}" Text="{Binding StudyContent, Mode=TwoWay}"/>
+
+                    <TextBlock TextWrapping="Wrap" Text="四、下周工作计划" Foreground="#FFBDBDBD" Margin="10,10,10,5"/>
+                    <TextBox Style="{StaticResource textInput}" Text="{Binding ScheduleNextWeek, Mode=TwoWay}"/>
+
+                    <TextBlock TextWrapping="Wrap" Text="五、意见和建议" Foreground="#FFBDBDBD" Margin="10,10,10,5"/>
+                    <TextBox Style="{StaticResource textInput}" Text="{Binding Opinion, Mode=TwoWay}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+
+
+</Window>
